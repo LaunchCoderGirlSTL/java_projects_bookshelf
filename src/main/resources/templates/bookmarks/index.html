@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bookmarks</title>
+
+    <h1>Welcome to bookmarks.</h1>
+    This is a place that lists many resources useful for generating your Java project.<br/>
+    You can browse the list, search by category, or add new bookmarks to share with your peers.<br/>
+
+    <!--If bookmarks is missing from the model, the rest just silently won't load.-->
+    <!--Since that's confusing, instead of silently skipping the render, explain that something is wrong -->
+    <p th:unless="${bookmarks}">Something went wrong. Unable to load bookmarks</p>
+
+    <br/><br/>
+    <!--todo switch these to bookmarks.size()-->
+    Number of bookmarks currently in the system: <span th:text="${count}"/>.
+
+    <ul>
+        <li th:each="bookmark: ${bookmarks}" th:text="${bookmark.title}"></li>
+    </ul>
+
+    <form method="post" action="/bookmarks/new">
+        <input type="text" name="bookmarkDescription" />
+        <input type="submit" value="Add this bookmark"/>
+
+    </form>
+</h1>
+</head>
+<body>
+
+</body>
+</html>
