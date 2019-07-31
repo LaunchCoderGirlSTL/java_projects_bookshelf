@@ -10,11 +10,13 @@
 	</parent>
 	<groupId>org.codergirl.java</groupId>
 	<artifactId>bookshelf</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bookshelf</name>
 	<description>Demo project for Codergirl: Java using Spring Boot</description>
 
 	<properties>
+		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -24,6 +26,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!--
+			There are ways to have jsp and thymeleaf coexist, but they're delicate, so
+			it's one or the other right now.
+			https://stackoverflow.com/questions/28480223/using-both-thymeleaf-and-jsp
+
+			So disable this to run the jsp demo
+			-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -35,6 +44,25 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Need this to compile JSP -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
