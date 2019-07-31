@@ -30,12 +30,14 @@ public class BookmarksController {
     public String index(Model model) {
 
         model.addAttribute(("bookmarks"), bookmarks);
-        model.addAttribute("count", 5);
+        model.addAttribute("count", bookmarks.size());
         return "bookmarks/index";
     }
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String loadAddPage(Model model) {
+        model.addAttribute(("bookmarks"), bookmarks);
+        model.addAttribute("count", bookmarks.size());
         return "bookmarks/index";
     }
 
