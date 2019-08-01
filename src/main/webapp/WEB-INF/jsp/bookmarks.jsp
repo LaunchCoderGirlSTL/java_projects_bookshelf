@@ -24,13 +24,21 @@
 
     <ul>
     <c:forEach items="${bookmarks}" var="bookmark">
-        <li><c:out value="${bookmark.title}"/></li>
+        <c:if test="${bookmark.webAddress == null}">
+            <li><c:out value="${bookmark.title}"/></li>
+        </c:if>
+        <c:if test="${bookmark.webAddress != null}">
+            <li><a href="${bookmark.webAddress}">
+                <c:out value="${bookmark.title}"/>
+            </a></li>
+        </c:if>
     </c:forEach>
     </ul>
 
-    <form method="post" action="/bookmarks2/new">
-        <input type="text" name="bookmarkDescription" />
-        <input type="submit" value="Add this bookmark"/>
+    <form method="post" action="/bookmarks/new">
+        Description: <input type="text" name="bookmarkDescription" />
+        <br/>Web Address: <input type="text" name="bookmarkAddress" />
+        <br/><input type="submit" value="Add this bookmark"/>
 
     </form>
 

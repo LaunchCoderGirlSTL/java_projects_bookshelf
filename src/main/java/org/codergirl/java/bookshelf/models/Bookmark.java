@@ -2,9 +2,11 @@ package org.codergirl.java.bookshelf.models;
 
 public class Bookmark {
     private String title;
+    private String webAddress;
 
-    public Bookmark(String title) {
+    public Bookmark(String title, String webAddress) {
         this.title = title;
+        this.webAddress = webAddress;
     }
 
     @Override
@@ -14,5 +16,9 @@ public class Bookmark {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getWebAddress() {
+        return webAddress;
     }
 }

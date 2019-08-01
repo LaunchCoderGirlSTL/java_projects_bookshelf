@@ -21,15 +21,15 @@ import java.util.ArrayList;
  */
 
 @Controller
-@RequestMapping("bookmarks2")
+@RequestMapping("bookmarks")
 public class Bookmarks2Controller {
     static ArrayList<Bookmark> bookmarks;
 
     public Bookmarks2Controller() {
         bookmarks = new ArrayList<Bookmark>();
-        bookmarks.add(new Bookmark("Uno"));
-        bookmarks.add(new Bookmark("Two"));
-        bookmarks.add(new Bookmark("Three"));
+        bookmarks.add(new Bookmark("Uno", null));
+        bookmarks.add(new Bookmark("JSP YouTube Videos on Luv2Code",
+                "https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl"));
     }
 
     @RequestMapping(value="", method = RequestMethod.GET)
@@ -37,24 +37,20 @@ public class Bookmarks2Controller {
         model.addAttribute(("bookmarks"), bookmarks);
         model.addAttribute("count", bookmarks.size());
 
-        return "bookmarks2";
+        return "bookmarks";
     }
 
     @RequestMapping(value="new", method = RequestMethod.GET)
-    public String listBookmarksPost(Model model){
-        model.addAttribute(("bookmarks"), bookmarks);
-        model.addAttribute("count", bookmarks.size());
-
-        return "bookmarks2";
+    public String newBookmarkGet(){
+        return "redirect:";
     }
-    //TODO cleverly reduce the duplication with the above.
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String saveAddNewBookmark(Model model, @RequestParam String bookmarkDescription) {
+    public String saveAddNewBookmark(@RequestParam String bookmarkDescription,
+                                     @RequestParam String bookmarkAddress) {
 
-        System.out.println("Saved it..." + bookmarkDescription);
-        bookmarks.add(new Bookmark(bookmarkDescription));
-        return listBookmarks(model);
-//      TODO use an actual redirect?
+        System.out.println("Saved it..." + bookmarkDescription + " " + bookmarkAddress);
+        bookmarks.add(new Bookmark(bookmarkDescription, bookmarkAddress));
+        return "redirect:";
     }
 }

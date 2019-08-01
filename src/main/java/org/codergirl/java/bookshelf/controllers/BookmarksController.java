@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping("bookmarks")
+@RequestMapping("bookmarks_tl")
 public class BookmarksController {
 
     static ArrayList<Bookmark> bookmarks;
 
     public BookmarksController() {
         bookmarks = new ArrayList<Bookmark>();
-        bookmarks.add(new Bookmark("Uno"));
-        bookmarks.add(new Bookmark("Two"));
-        bookmarks.add(new Bookmark("Three"));
+        bookmarks.add(new Bookmark("Uno", null));
+        bookmarks.add(new Bookmark("Two", null));
+        bookmarks.add(new Bookmark("Three", null));
     }
 
     @RequestMapping(value = "")
@@ -35,7 +35,7 @@ public class BookmarksController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
-    public String loadAddPage(Model model) {
+    public String newBookmarkGet(Model model) {
         model.addAttribute(("bookmarks"), bookmarks);
         model.addAttribute("count", bookmarks.size());
         return "bookmarks/index";
@@ -49,7 +49,7 @@ public class BookmarksController {
 //        String bookmarkDescription = request.getParameter("cheeseName");
 
         System.out.println("Saved it..." + bookmarkDescription);
-        bookmarks.add(new Bookmark(bookmarkDescription));
+        bookmarks.add(new Bookmark(bookmarkDescription, null));
         return "redirect:";
     }
 
