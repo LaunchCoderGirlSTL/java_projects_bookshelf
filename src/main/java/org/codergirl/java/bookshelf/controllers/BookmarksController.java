@@ -3,11 +3,12 @@ package org.codergirl.java.bookshelf.controllers;
 import org.codergirl.java.bookshelf.models.Bookmark;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Sources:
@@ -22,34 +23,51 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("bookmarks")
 public class BookmarksController {
-    static ArrayList<Bookmark> bookmarks;
+    static HashMap<Integer, Bookmark> bookmarks;
 
     public BookmarksController() {
-        bookmarks = new ArrayList<Bookmark>();
-        bookmarks.add(new Bookmark("Uno", null));
-        bookmarks.add(new Bookmark("JSP YouTube Videos on Luv2Code",
+        bookmarks = new HashMap<>();
+        bookmarks.put(1, new Bookmark(1,"Uno", "http://google.com"));
+        bookmarks.put(2, new Bookmark(2,"JSP YouTube Videos on Luv2Code",
                 "https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl"));
     }
 
-    @RequestMapping(value="")
+    @GetMapping()
     public String listBookmarks(Model model){
-        model.addAttribute(("bookmarks"), bookmarks);
+        model.addAttribute(("bookmarks"), bookmarks.values());
         model.addAttribute("count", bookmarks.size());
 
         return "bookmarks.html";
     }
 
-    @RequestMapping(value="new", method = RequestMethod.GET)
+    @GetMapping("/new")
     public String newBookmarkGet(){
         return "redirect:";
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String saveAddNewBookmark(@RequestParam String bookmarkDescription,
-                                     @RequestParam String bookmarkAddress) {
+    @PostMapping("/new")
+    public String saveAddNewBookmark(@RequestParam String title,
+                                     @RequestParam String webAddress) {
+        System.out.println("Saved it..." + title + " " + webAddress);
 
-        System.out.println("Saved it..." + bookmarkDescription + " " + bookmarkAddress);
-        bookmarks.add(new Bookmark(bookmarkDescription, bookmarkAddress));
+        int id = bookmarks.size() + 1;
+
+        bookmarks.put(id, new Bookmark(id, title, webAddress));
         return "redirect:";
     }
+
+    @GetMapping("/{id}/edit")
+    public String viewBookmark(Model model, @PathVariable int id) {
+        Bookmark bookmark = bookmarks.get(id);
+        model.addAttribute("bookmark", bookmark);
+
+        return "bookmark.html";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editBookmark(@ModelAttribute Bookmark bookmark, @PathVariable int id) {
+        bookmarks.put(id, bookmark);
+        return "redirect:/bookmarks";
+    }
+
 }

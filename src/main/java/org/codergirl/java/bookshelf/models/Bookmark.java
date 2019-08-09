@@ -3,8 +3,10 @@ package org.codergirl.java.bookshelf.models;
 public class Bookmark {
     private String title;
     private String webAddress;
+    private int id;
 
-    public Bookmark(String title, String webAddress) {
+    public Bookmark(int id, String title, String webAddress) {
+        this.id = id;
         this.title = title;
         this.webAddress = webAddress;
     }
@@ -20,5 +22,9 @@ public class Bookmark {
 
     public String getWebAddress() {
         return webAddress;
+    }
+
+    public int getId() {
+        return id;
     }
 }

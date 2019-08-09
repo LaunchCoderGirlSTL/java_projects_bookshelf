@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bookmarks</title>
+</head>
+<body>
+  <form method="post" th:action="@{'/bookmarks/' + ${bookmark.id} + '/edit'}" th:object="${bookmark}">
+      Description: <input type="text" th:field="*{title}" />
+      <input type="hidden" th:field="*{id}" />
+      <br/>Web Address: <input type="text" th:field="*{webAddress}" />
+      <br/><input type="submit" value="Save"/>
+  </form>
+</body>
+</html>
