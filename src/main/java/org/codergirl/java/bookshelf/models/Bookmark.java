@@ -13,7 +13,11 @@ public class Bookmark {
 
     @Override
     public String toString() {
-        return title;
+        return "Bookmark{" +
+                "title='" + title + '\'' +
+                ", webAddress='" + webAddress + '\'' +
+                ", id=" + id +
+                '}';
     }
 
     public String getTitle() {
