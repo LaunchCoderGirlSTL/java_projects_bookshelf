@@ -1,7 +1,7 @@
 CREATE SCHEMA bookshelf authorization sa;
 
 CREATE TABLE bookshelf.bookmark (
-ID INT PRIMARY KEY,
+ID INT auto_increment PRIMARY KEY,
 TITLE VARCHAR(255) DEFAULT '',
 ADDRESS VARCHAR(255) DEFAULT '');
 

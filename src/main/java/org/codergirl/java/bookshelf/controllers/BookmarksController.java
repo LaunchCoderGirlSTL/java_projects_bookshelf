@@ -1,14 +1,13 @@
 package org.codergirl.java.bookshelf.controllers;
 
+import org.codergirl.java.bookshelf.dao.BookmarksDAO;
 import org.codergirl.java.bookshelf.models.Bookmark;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Sources:
@@ -23,18 +22,15 @@ import java.util.Map;
 @Controller
 @RequestMapping("bookmarks")
 public class BookmarksController {
-    static HashMap<Integer, Bookmark> bookmarks;
 
-    public BookmarksController() {
-        bookmarks = new HashMap<>();
-        bookmarks.put(1, new Bookmark(1,"Uno", "http://google.com"));
-        bookmarks.put(2, new Bookmark(2,"JSP YouTube Videos on Luv2Code",
-                "https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl"));
-    }
+    @Autowired
+    private BookmarksDAO bookmarksDAO;
 
     @GetMapping()
     public String listBookmarks(Model model){
-        model.addAttribute(("bookmarks"), bookmarks.values());
+        List<Bookmark> bookmarks = bookmarksDAO.getAll();
+        model.addAttribute(("bookmarks"), bookmarks);
+
         model.addAttribute("count", bookmarks.size());
 
         return "bookmarks.html";
@@ -50,15 +46,13 @@ public class BookmarksController {
                                      @RequestParam String webAddress) {
         System.out.println("Saved it..." + title + " " + webAddress);
 
-        int id = bookmarks.size() + 1;
-
-        bookmarks.put(id, new Bookmark(id, title, webAddress));
+        bookmarksDAO.addBookmark(new Bookmark(-1, title, webAddress));
         return "redirect:";
     }
 
     @GetMapping("/{id}/edit")
     public String viewBookmark(Model model, @PathVariable int id) {
-        Bookmark bookmark = bookmarks.get(id);
+        Bookmark bookmark = bookmarksDAO.findById(id);
         model.addAttribute("bookmark", bookmark);
 
         return "bookmark.html";
@@ -66,7 +60,7 @@ public class BookmarksController {
 
     @PostMapping("/{id}/edit")
     public String editBookmark(@ModelAttribute Bookmark bookmark, @PathVariable int id) {
-        bookmarks.put(id, bookmark);
+        bookmarksDAO.updateBookmark(id, bookmark);
         return "redirect:/bookmarks";
     }
 

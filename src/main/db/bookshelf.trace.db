@@ -92,3 +92,13 @@ select * form bookshelf.bookmarks [42000-197]
 2019-08-14 19:32:58 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Table "BOOKMARKS" not found; SQL statement:
 select * from bookshelf.bookmarks [42102-197]
+2019-08-20 21:12:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE BOOKSHELF.BOOKMARK
+MODIFY ID INT(10) UNSIGNED AUTOINCREMENT[*] "; SQL statement:
+ALTER TABLE bookshelf.bookmark
+MODIFY ID INT(10) UNSIGNED AUTOINCREMENT [42000-197]
+2019-08-20 21:12:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE BOOKSHELF.BOOKMARK
+MODIFY ID INT  AUTOINCREMENT[*] "; SQL statement:
+ALTER TABLE bookshelf.bookmark
+MODIFY ID INT  AUTOINCREMENT [42000-197]
