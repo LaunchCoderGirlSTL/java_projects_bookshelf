@@ -16,6 +16,8 @@ public class Sha256 {
     }
 
     public static void main(String [] args){
+        System.out.println(to256("!2345"));
+        System.out.println();
 
         System.out.println(to256("GoodPasswordsAreHardButCodingIsHarder"));
         System.out.println(to256("Code"));

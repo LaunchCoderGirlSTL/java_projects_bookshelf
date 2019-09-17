@@ -10,7 +10,7 @@ public class User {
 
     public User(String username, String password, String quest, String favoriteColor) {
         this.username = username;
-        this.password = password;
+        this.password = Sha256.to256(password);
         this.quest = quest;
         this.favoriteColor = favoriteColor;
     }
@@ -29,5 +29,21 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username, password, quest, favoriteColor);
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getQuest() {
+        return quest;
+    }
+
+    public String getFavoriteColor() {
+        return favoriteColor;
     }
 }

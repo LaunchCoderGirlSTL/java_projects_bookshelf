@@ -4,10 +4,11 @@ package org.codergirl.java.bookshelf.demos;
 import java.util.Scanner;
 
 public class PasswordChecker {
-    private static String PASSWORD_MUCH_SECRET_DONT_TELL = "!2345";
+    private static String PASSWORD_MUCH_SECRET_DONT_TELL = "db85db777f67685f23f4fc292a21269675d2ae7e33f7782cd123071227f9eed0";
 
     public static boolean isPasswordCorrect(String enteredPassword){
-        return PASSWORD_MUCH_SECRET_DONT_TELL.equals(enteredPassword);
+        return PASSWORD_MUCH_SECRET_DONT_TELL
+                .equals(Sha256.to256(enteredPassword));
     }
 
     public static void main(String[] args){
