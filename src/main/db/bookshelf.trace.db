@@ -102,3 +102,12 @@ org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE BOOKSHE
 MODIFY ID INT  AUTOINCREMENT[*] "; SQL statement:
 ALTER TABLE bookshelf.bookmark
 MODIFY ID INT  AUTOINCREMENT [42000-197]
+2019-09-24 23:22:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USERS" not found; SQL statement:
+select username from bookshelf.users where username=? and password=? [42102-197]
+2019-09-24 23:24:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USERS" not found; SQL statement:
+select username from bookshelf.users where username=? and password=? [42102-197]
+2019-09-24 23:26:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USERS" not found; SQL statement:
+select username from bookshelf.users where username=? and password=? [42102-197]
