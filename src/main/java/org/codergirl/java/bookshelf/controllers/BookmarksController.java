@@ -1,7 +1,9 @@
 package org.codergirl.java.bookshelf.controllers;
 
 import org.codergirl.java.bookshelf.dao.BookmarksDAO;
+import org.codergirl.java.bookshelf.dao.LoginDAO;
 import org.codergirl.java.bookshelf.models.Bookmark;
+import org.codergirl.java.bookshelf.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,32 @@ import java.util.*;
 @Controller
 @RequestMapping("bookmarks")
 public class BookmarksController {
-
     @Autowired
     private BookmarksDAO bookmarksDAO;
+
+    @Autowired
+    private LoginDAO loginDAO;
+
+    @Autowired
+    private User user;
+
+    @GetMapping("/login")
+    public String display() {
+        return "login.html";
+    }
+
+    @PostMapping("/login")
+    public String login(Model model, @RequestParam String username, @RequestParam String password) {
+        user = new User(username, password);
+
+        if (loginDAO.isValidUser(user)) {
+            model.addAttribute("user", user);
+            return "bookmarks.html";
+        }
+        else {
+            return "loginError.html";
+        }
+    }
 
     @GetMapping()
     public String listBookmarks(Model model){

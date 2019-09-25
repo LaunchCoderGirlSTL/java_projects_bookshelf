@@ -1,14 +1,10 @@
 package org.codergirl.java.bookshelf.models;
 
 import com.google.common.hash.Hashing;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-@Component
-@Scope("session")
 public class User {
   private String username;
   private String passwordHash;
@@ -16,10 +12,8 @@ public class User {
   public User(){}
 
   public User(String username, String password) {
-    this.username = username;
-    this.passwordHash = Hashing.sha256()
-        .hashString(password, StandardCharsets.UTF_8)
-        .toString();
+    setUsername(username);
+    setPassword(password);
   }
 
   @Override
@@ -34,6 +28,16 @@ public class User {
   @Override
   public int hashCode() {
     return Objects.hash(username, passwordHash);
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setPassword(String password) {
+    this.passwordHash = Hashing.sha256()
+        .hashString(password, StandardCharsets.UTF_8)
+        .toString();
   }
 
   public String getUsername() {
